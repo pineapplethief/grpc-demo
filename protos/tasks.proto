@@ -8,6 +8,8 @@ service TasksService {
     rpc AddTask(AddTaskRequest) returns (AddTaskResponse) {}
     rpc DeleteTask(DeleteTaskRequest) returns (DeleteTaskResponse) {}
     rpc FinishTask(FinishTaskRequest) returns (FinishTaskResponse) {}
+
+    rpc GetTasks(GetTasksRequest) returns (stream Task) {}
 }
 
 // The request message containing the user's name.
@@ -35,6 +37,8 @@ message FinishTaskRequest {
 message FinishTaskResponse {
     Task task = 1;
 }
+
+message GetTasksRequest {}
 
 message Task {
     // The title of the task.

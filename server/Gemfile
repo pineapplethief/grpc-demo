@@ -7,3 +7,4 @@ gem 'grpc-tools'
 gem 'google-protobuf', platforms: :ruby
 
 gem 'dry-struct'
+gem 'awesome_print'

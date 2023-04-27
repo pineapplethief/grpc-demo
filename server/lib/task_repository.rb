@@ -11,6 +11,10 @@ class TaskRepository
     @tasks ||= {}
   end
 
+  def list
+    tasks.values.sort_by { |task| task.done_at.nil? || task.done_at }
+  end
+
   def add(task)
     tasks[task.title] = task
   end

@@ -17,6 +17,7 @@ module Tasks
       rpc :AddTask, ::Tasks::AddTaskRequest, ::Tasks::AddTaskResponse
       rpc :DeleteTask, ::Tasks::DeleteTaskRequest, ::Tasks::DeleteTaskResponse
       rpc :FinishTask, ::Tasks::FinishTaskRequest, ::Tasks::FinishTaskResponse
+      rpc :GetTasks, ::Tasks::GetTasksRequest, stream(::Tasks::Task)
     end
 
     Stub = Service.rpc_stub_class

@@ -33,7 +33,12 @@ def main
 
     puts "Task finished successfully: #{response.task.inspect}"
 
-    request = ::Tasks::DeleteTaskRequest.new(title: title)
+    request = ::Tasks::GetTasksRequest.new
+
+    responses = stub.get_tasks(request)
+    responses.each do |response|
+      puts "Got response, task inside: #{response.title}"
+    end
 
     response = stub.delete_task(request)
     puts "Task deleted successfully?: #{response.success}"

@@ -25,6 +25,8 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_message "tasks.FinishTaskResponse" do
       optional :task, :message, 1, "tasks.Task"
     end
+    add_message "tasks.GetTasksRequest" do
+    end
     add_message "tasks.Task" do
       optional :title, :string, 1
       optional :description, :string, 2
@@ -40,5 +42,6 @@ module Tasks
   DeleteTaskResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("tasks.DeleteTaskResponse").msgclass
   FinishTaskRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("tasks.FinishTaskRequest").msgclass
   FinishTaskResponse = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("tasks.FinishTaskResponse").msgclass
+  GetTasksRequest = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("tasks.GetTasksRequest").msgclass
   Task = ::Google::Protobuf::DescriptorPool.generated_pool.lookup("tasks.Task").msgclass
 end
