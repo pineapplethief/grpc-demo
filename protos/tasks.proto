@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package tasks;
+
+import "google/protobuf/timestamp.proto";
+
+service TasksService {
+    rpc AddTask(AddTaskRequest) returns (AddTaskResponse) {}
+    rpc DeleteTask(DeleteTaskRequest) returns (DeleteTaskResponse) {}
+    rpc FinishTask(FinishTaskRequest) returns (FinishTaskResponse) {}
+}
+
+// The request message containing the user's name.
+message AddTaskRequest {
+    Task task = 1;
+}
+
+// The response message containing the greetings
+message AddTaskResponse {
+    bool success = 1;
+}
+
+message DeleteTaskRequest {
+    string title = 1;
+}
+
+message DeleteTaskResponse {
+    bool success = 1;
+}
+
+message FinishTaskRequest {
+    string title = 1;
+}
+
+message FinishTaskResponse {
+    Task task = 1;
+}
+
+message Task {
+    // The title of the task.
+    string title = 1;
+
+    // Description of the task
+    string description = 2;
+
+    // Mark when task was done
+    google.protobuf.Timestamp done_at = 3;
+}
