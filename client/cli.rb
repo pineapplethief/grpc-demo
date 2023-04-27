@@ -24,6 +24,7 @@ module Helpers
   end
 
   def print_task(task)
+    puts "ID          = #{task.id}"
     puts "title       = #{task.title}"
     puts "description = #{task.description}"
     puts "done?       = #{!task.done_at.nil?}"
@@ -68,7 +69,9 @@ module TasksClient
 
           response = Client.instance.add_task(title: title, description: description)
 
-          puts "Task added successfully?: #{response.success}"
+          puts "Created Task:"
+          Helpers.print_task(response.task)
+
           Helpers.separator
         end
       end
@@ -76,13 +79,13 @@ module TasksClient
       class FinishTask < Dry::CLI::Command
         desc 'finishes the task'
 
-        option :title, required: true, desc: 'Title of the task'
+        option :id, required: true, desc: 'Title of the task'
 
-        def call(title:, **)
-          puts "Finishes Task with title='#{title}'"
+        def call(id:, **)
+          puts "Finishes Task with id='#{id}'"
           Helpers.separator
 
-          response = Client.instance.finish_task(title: title)
+          response = Client.instance.finish_task(id: id.to_i)
 
           puts "Updated Task:"
           Helpers.print_task(response.task)
@@ -93,12 +96,12 @@ module TasksClient
       class DeleteTask < Dry::CLI::Command
         desc 'deletes task'
 
-        option :title, required: true, desc: 'Title of the task'
+        option :id, required: true, desc: 'ID of the task'
 
-        def call(title:, **)
-          puts "Deleting Task with title='#{title}'"
+        def call(id:, **)
+          puts "Deleting Task with id='#{id}'"
 
-          response = Client.instance.delete_task(title: title)
+          response = Client.instance.delete_task(id: id.to_i)
 
           puts "Task deleted successfully?: #{response.success}"
           Helpers.separator

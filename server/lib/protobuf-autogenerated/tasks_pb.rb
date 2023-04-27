@@ -11,16 +11,16 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
       optional :task, :message, 1, "tasks.Task"
     end
     add_message "tasks.AddTaskResponse" do
-      optional :success, :bool, 1
+      optional :task, :message, 1, "tasks.Task"
     end
     add_message "tasks.DeleteTaskRequest" do
-      optional :title, :string, 1
+      optional :id, :int32, 1
     end
     add_message "tasks.DeleteTaskResponse" do
       optional :success, :bool, 1
     end
     add_message "tasks.FinishTaskRequest" do
-      optional :title, :string, 1
+      optional :id, :int32, 1
     end
     add_message "tasks.FinishTaskResponse" do
       optional :task, :message, 1, "tasks.Task"
@@ -28,9 +28,10 @@ Google::Protobuf::DescriptorPool.generated_pool.build do
     add_message "tasks.GetTasksRequest" do
     end
     add_message "tasks.Task" do
-      optional :title, :string, 1
-      optional :description, :string, 2
-      optional :done_at, :message, 3, "google.protobuf.Timestamp"
+      optional :id, :int32, 1
+      optional :title, :string, 2
+      optional :description, :string, 3
+      optional :done_at, :message, 4, "google.protobuf.Timestamp"
     end
   end
 end

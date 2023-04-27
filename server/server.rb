@@ -10,7 +10,10 @@ $LOAD_PATH.unshift(protobuf_dir) unless $LOAD_PATH.include?(protobuf_dir)
 
 require 'awesome_print'
 
+require 'db_setup'
+
 require 'task'
+require 'tasks_list'
 require 'tasks_store'
 require 'task_repository'
 
@@ -20,31 +23,26 @@ class TasksServer < Tasks::TasksService::Service
   SERVER_URL = '0.0.0.0:33377'
 
   def get_tasks(_request, _call)
-    tasks = tasks_repository.list
-    puts "tasks = #{ap tasks}"
-    TasksList.new(tasks).each
+    TasksList.new(tasks_repository.list).each
   end
 
   def add_task(request, _call)
-    task = Task.build_from_grpc_task(request.task)
-    tasks_repository.add(task)
+    task = tasks_repository.add(request.task)
 
-    Tasks::AddTaskResponse.new(success: true)
+    Tasks::AddTaskResponse.new(
+      task: Task.build_grpc_task(task)
+    )
   end
 
   def finish_task(request, _call)
-    title = request.title
-
-    task = tasks_repository.finish_by_title(title)
+    task = tasks_repository.finish(request.id)
     grpc_task = Task.build_grpc_task(task)
 
     Tasks::FinishTaskResponse.new(task: grpc_task)
   end
 
   def delete_task(request, _call)
-    title = request.title
-
-    tasks_repository.delete_by_title(title)
+    tasks_repository.delete(request.id)
 
     Tasks::DeleteTaskResponse.new(success: true)
   end

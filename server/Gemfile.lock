@@ -30,6 +30,8 @@ GEM
       googleapis-common-protos-types (~> 1.0)
     grpc-tools (1.54.0)
     ice_nine (0.11.2)
+    sequel (5.67.0)
+    sqlite3 (1.6.2-x86_64-darwin)
     zeitwerk (2.6.7)
 
 PLATFORMS
@@ -41,6 +43,8 @@ DEPENDENCIES
   google-protobuf
   grpc
   grpc-tools
+  sequel
+  sqlite3
 
 BUNDLED WITH
    2.4.12

@@ -7,27 +7,25 @@ class TaskRepository
 
   NotFound = Class.new(StandardError)
 
-  def tasks
-    @tasks ||= {}
-  end
-
   def list
-    tasks.values.sort_by { |task| task.done_at.nil? || task.done_at }
+    Task.order(Sequel.desc(:done_at, nulls: :first))
   end
 
-  def add(task)
-    tasks[task.title] = task
+  def add(grpc_task)
+    Task.create(title: grpc_task.title, description: grpc_task.description)
   end
 
-  def delete_by_title(title)
-    tasks.delete(title)
+  def delete(id)
+    task = Task[id]
+    task.delete
   end
 
-  def finish_by_title(title)
-    task = tasks[title]
+  def finish(id)
+    task = Task[id]
     raise NotFound unless task
 
-    tasks[title] = Task.new(title: task.title, description: task.description, done_at: DateTime.now)
-    tasks[title]
+    task.done_at = DateTime.now
+    task.save
+    task
   end
 end

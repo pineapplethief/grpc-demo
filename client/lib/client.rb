@@ -25,16 +25,16 @@ class Client
     end
   end
 
-  def finish_task(title:)
-    request = ::Tasks::FinishTaskRequest.new(title: title)
+  def finish_task(id:)
+    request = ::Tasks::FinishTaskRequest.new(id: id)
 
     with_error_handling do
       stub.finish_task(request)
     end
   end
 
-  def delete_task(title:)
-    request = ::Tasks::DeleteTaskRequest.new(title: title)
+  def delete_task(id:)
+    request = ::Tasks::DeleteTaskRequest.new(id: id)
 
     with_error_handling do
       stub.delete_task(request)
